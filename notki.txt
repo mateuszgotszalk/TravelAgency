@@ -1,0 +1,2 @@
+mysql : docker run -it --network microservices --name trip-db -p 5555:3306 -e MYSQL_ROOT_PASSWORD=pass -d mysql:latest
+2fab896a155e1a314e53b451aa43397adbc50
