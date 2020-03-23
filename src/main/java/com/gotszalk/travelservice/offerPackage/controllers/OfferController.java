@@ -31,7 +31,6 @@ public class OfferController {
         }
     }
 
-
     @GetMapping(path = "offer/getOffers")
     public @ResponseBody ResponseEntity<String> getOffers(){
 
