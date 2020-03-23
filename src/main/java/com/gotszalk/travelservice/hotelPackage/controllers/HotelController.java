@@ -22,20 +22,19 @@ public class HotelController {
     }
 
     @RequestMapping(path = "hotels/addHotel", method = RequestMethod.POST)
-    public ResponseEntity<String> addHotel(@RequestBody HotelInputForm hotelInput){
+    public @ResponseBody ResponseEntity<String> addHotel(@RequestBody HotelInputForm hotelInput){
 
-        Hotel hotel = null;
         try {
-            hotel = hotelService.createHotel(hotelInput);
+            Hotel hotel = hotelService.createHotel(hotelInput);
+            return ResponseEntity.ok(hotel.getHotelId().toString());
         }catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-       return ResponseEntity.ok(hotel.getHotelId().toString());
     }
 
     @RequestMapping(path = "hotels/addHotelList", method = RequestMethod.POST)
-    public ResponseEntity<String> addHotelList(@RequestBody HotelInputForm[] inputHotels){
+    public @ResponseBody ResponseEntity<String> addHotelList(@RequestBody HotelInputForm[] inputHotels){
 
         List<Hotel> hotels = new LinkedList<>();
 
@@ -51,10 +50,9 @@ public class HotelController {
     }
 
     @RequestMapping(path = "hotels/getHotels", method = RequestMethod.GET)
-    public ResponseEntity<String> getHotels(){
+    public @ResponseBody ResponseEntity<String> getHotels(){
         try{
-            List<Hotel> hotels = hotelService.getHotels();
-            return ResponseEntity.ok(hotels.toString());
+            return ResponseEntity.ok(hotelService.getHotels().toString());
         }catch (Exception e){
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -62,10 +60,9 @@ public class HotelController {
     }
 
     @RequestMapping(path = "hotels/getHotel/{id}", method = RequestMethod.GET)
-    public ResponseEntity<String> getHotel(@PathVariable String id){
+    public @ResponseBody ResponseEntity<String> getHotel(@PathVariable String id){
         try{
-            Hotel hotel = hotelService.getHotel(id);
-            return ResponseEntity.ok(hotel.toString());
+            return ResponseEntity.ok(hotelService.getHotel(id).toString());
 
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -73,8 +70,8 @@ public class HotelController {
         }
     }
 
-    @RequestMapping(path = "hotels/deleteHotel", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteHotel(String id){
+    @RequestMapping(path = "hotels/deleteHotel/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody ResponseEntity<String> deleteHotel(@PathVariable String id){
         try{
             hotelService.deleteHotel(id);
         }catch (Exception e){

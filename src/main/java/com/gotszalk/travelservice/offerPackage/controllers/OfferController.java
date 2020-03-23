@@ -2,54 +2,63 @@ package com.gotszalk.travelservice.offerPackage.controllers;
 
 import com.gotszalk.travelservice.offerPackage.models.Offer;
 import com.gotszalk.travelservice.offerPackage.models.OfferInputForm;
-import com.gotszalk.travelservice.offerPackage.repository.OfferRepository;
+import com.gotszalk.travelservice.offerPackage.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class OfferController {
 
-    private OfferRepository offerRepository;
+    private OfferService offerService;
 
     @Autowired
-    public OfferController(OfferRepository offerRepository) {
-        this.offerRepository = offerRepository;
+    public OfferController(OfferService offerService) {
+        this.offerService = offerService;
     }
 
     @PostMapping(path = "offer/addOffer")
     public @ResponseBody ResponseEntity<String> addOffer(@RequestBody OfferInputForm inputForm){
 
-        if(inputForm == null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Input is empty");
-        } else {
-            //najpier add hotel potem add flight i potem robimy oferte
+        try {
+            Offer offer = offerService.createOffer(inputForm);
+            return ResponseEntity.ok(offer.getOfferId().toString());
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @GetMapping(path = "offer/getOffers")
     public @ResponseBody ResponseEntity<String> getOffers(){
-
-        List<Offer> offers = null;
         try{
-            offers = (List<Offer>)offerRepository.findAll();
+            return ResponseEntity.ok(offerService.getOffers().toString());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @GetMapping(path = "offer/getOffer/{id}")
+    public ResponseEntity<String> getOffer(@PathVariable String id){
+        try{
+            return ResponseEntity.ok(offerService.getOffer(id).toString());
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not Found offer " + id);
+        }
+    }
+
+    @DeleteMapping(path = "offer/deleteOffer/{id}")
+    public @ResponseBody ResponseEntity<String> deleteOffer(@PathVariable String id){
+        try{
+            offerService.deleteOffer(id);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-        return ResponseEntity.ok(offers.toString());
-    }
-
-    @GetMapping(path = "hotels/getHotel/{id}")
-    public ResponseEntity<String> getOffer(@PathVariable String id){
-        Optional<Offer> offer = offerRepository.findById(Long.valueOf(id));
-        if(offer.isPresent()){
-            return ResponseEntity.ok(offer.get().toString());
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not Found offer " + id);
-        }
+        return ResponseEntity.ok("Deleted offer with id " + id);
     }
 }

@@ -2,72 +2,63 @@ package com.gotszalk.travelservice.flightPackage.controllers;
 
 import com.gotszalk.travelservice.flightPackage.models.Flight;
 import com.gotszalk.travelservice.flightPackage.models.FlightInputForm;
-import com.gotszalk.travelservice.flightPackage.repository.FlightRepository;
+import com.gotszalk.travelservice.flightPackage.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class FlightController {
 
-    private FlightRepository flightRepository;
+    private FlightService flightService;
 
     @Autowired
-    public FlightController(FlightRepository flightRepository) {
-        this.flightRepository = flightRepository;
+    public FlightController(FlightService flightService) {
+        this.flightService = flightService;
     }
 
     @RequestMapping(path = "flights/addFlight")
-    public ResponseEntity<String> addFlight(@RequestBody FlightInputForm flightInput){
-        if(flightInput == null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Input is empty");
-        }
-        else {
-            Flight flight = new Flight();
-            flight.setArrivalAirport(flightInput.getArrivalAirport());
-            flight.setArrivalCountry(flightInput.getArrivalCountry());
-            flight.setArrivalDate(flightInput.getArrivalDate());
-            flight.setDepartureAirport(flightInput.getDepartureAirport());
-            flight.setDepartureCountry(flightInput.getDepartureCountry());
-            flight.setDepartureDate(flightInput.getDepartureDate());
-            flight.setFlightCost(flightInput.getFlightCost());
-            try {
-                flightRepository.save(flight);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-            }
-            return ResponseEntity.ok(flight.getFlightId() + "");
+    public @ResponseBody ResponseEntity<String> addFlight(@RequestBody FlightInputForm flightInput){
+        try {
+            Flight flight = flightService.createFlight(flightInput);
+            return ResponseEntity.ok(flight.getFlightId().toString());
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @RequestMapping(path = "flights/getFlights", method = RequestMethod.GET)
-    public ResponseEntity<List<Flight>> getFlights(){
-        List<Flight> flights = (List<Flight>)flightRepository.findAll();
-        return ResponseEntity.ok(flights);
+    public @ResponseBody ResponseEntity<String> getFlights(){
+        try{
+            return ResponseEntity.ok(flightService.getFLights().toString());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @RequestMapping(path = "flights/getFlight/{id}", method = RequestMethod.GET)
-    public ResponseEntity<String> getFlight(@PathVariable String id){
-        Optional<Flight> flight = flightRepository.findById(Long.valueOf(id));
-        if(flight.isPresent()){
-            return ResponseEntity.ok(flight.get().toString());
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not Found flight " + id);
+    public @ResponseBody ResponseEntity<String> getFlight(@PathVariable String id){
+        try{
+            return ResponseEntity.ok(flightService.getFlight(id).toString());
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not Found hotel " + id);
         }
     }
 
-    @RequestMapping(path = "flights/deleteFlight", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteFlight(Long id){
+    @RequestMapping(path = "flights/deleteFlight/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody ResponseEntity<String> deleteFlight(@PathVariable String id){
         try{
-            flightRepository.deleteById(id);
+            flightService.deleteFlight(id);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-        return ResponseEntity.ok("deleted flight with id " + id);
+        return ResponseEntity.ok("Deleted flight with id " + id);
     }
 }
