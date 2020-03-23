@@ -6,7 +6,7 @@ public class FlightInputForm {
 
     private String departureAirport;
     private String departureCountry;
-    private String DepartureDate;
+    private String departureDate;
     private String arrivalAirport;
     private String arrivalCountry;
     private String arrivalDate;
@@ -20,7 +20,7 @@ public class FlightInputForm {
                            BigDecimal flightCost) {
         this.departureAirport = departureAirport;
         this.departureCountry = departureCountry;
-        DepartureDate = departureDate;
+        this.departureDate = departureDate;
         this.arrivalAirport = arrivalAirport;
         this.arrivalCountry = arrivalCountry;
         this.arrivalDate = arrivalDate;
@@ -44,11 +44,11 @@ public class FlightInputForm {
     }
 
     public String getDepartureDate() {
-        return DepartureDate;
+        return departureDate;
     }
 
     public void setDepartureDate(String departureDate) {
-        DepartureDate = departureDate;
+        this.departureDate = departureDate;
     }
 
     public String getArrivalAirport() {
@@ -86,7 +86,7 @@ public class FlightInputForm {
     private FlightInputForm(final Builder builder){
         this.departureAirport = builder.departureAirport;
         this.departureCountry = builder.departureCountry;
-        this.DepartureDate = builder.DepartureDate;
+        this.departureDate = builder.departureDate;
         this.arrivalAirport = builder.arrivalAirport;
         this.arrivalCountry = builder.arrivalCountry;
         this.arrivalDate = builder.arrivalDate;
@@ -96,7 +96,7 @@ public class FlightInputForm {
     public static class Builder{
         private String departureAirport;
         private String departureCountry;
-        private String DepartureDate;
+        private String departureDate;
         private String arrivalAirport;
         private String arrivalCountry;
         private String arrivalDate;
@@ -115,8 +115,8 @@ public class FlightInputForm {
             return this;
         }
 
-        public Builder DepartureDate(String DepartureDate){
-            this.DepartureDate = DepartureDate;
+        public Builder departureDate(String DepartureDate){
+            this.departureDate = DepartureDate;
             return this;
         }
 
@@ -143,5 +143,18 @@ public class FlightInputForm {
         public FlightInputForm build(){
             return new FlightInputForm(this);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "FlightInputForm{" +
+                "departureAirport='" + departureAirport + '\'' +
+                ", departureCountry='" + departureCountry + '\'' +
+                ", departureDate='" + departureDate + '\'' +
+                ", arrivalAirport='" + arrivalAirport + '\'' +
+                ", arrivalCountry='" + arrivalCountry + '\'' +
+                ", arrivalDate='" + arrivalDate + '\'' +
+                ", flightCost=" + flightCost +
+                '}';
     }
 }

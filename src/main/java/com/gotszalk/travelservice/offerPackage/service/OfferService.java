@@ -56,7 +56,7 @@ public class OfferService {
                 .flightCost(inputForm.getFlightCost())
                 .departureAirport(inputForm.getDepartureAirport())
                 .departureCountry(inputForm.getDepartureCountry())
-                .DepartureDate(inputForm.getDepartureDate())
+                .departureDate(inputForm.getDepartureDate())
                 .arrivalAirport(inputForm.getArrivalAirport())
                 .arrivalCountry(inputForm.getArrivalCountry())
                 .arrivalDate(inputForm.getArrivalDate())

@@ -72,4 +72,13 @@ public class HotelInputForm {
             return new HotelInputForm(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "HotelInputForm{" +
+                "hotelName='" + hotelName + '\'' +
+                ", hotelCountry='" + hotelCountry + '\'' +
+                ", hotelCity='" + hotelCity + '\'' +
+                '}';
+    }
 }

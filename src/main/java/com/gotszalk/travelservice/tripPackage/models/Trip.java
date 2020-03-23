@@ -17,6 +17,9 @@ public class Trip {
     private BigDecimal totalCost;
     private String salesman;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Person> people;
@@ -29,11 +32,11 @@ public class Trip {
     public Trip() {
     }
 
-    public Trip(Long tripId, BigDecimal totalCost, /*List<Person> passengerList,*/ String salesman) {
+    public Trip(Long tripId, BigDecimal totalCost, String salesman, Status status) {
         this.tripId = tripId;
         this.totalCost = totalCost;
-       // this.passengerList = passengerList;
         this.salesman = salesman;
+        this.status = status;
     }
 
     public Long getTripId() {
@@ -74,5 +77,23 @@ public class Trip {
 
     public void setOffer(Offer offer) {
         this.offer = offer;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "tripId=" + tripId +
+                ", totalCost=" + totalCost +
+                ", salesman='" + salesman + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

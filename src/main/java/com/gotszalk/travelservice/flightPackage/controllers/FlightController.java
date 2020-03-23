@@ -23,7 +23,9 @@ public class FlightController {
     @RequestMapping(path = "flights/addFlight")
     public @ResponseBody ResponseEntity<String> addFlight(@RequestBody FlightInputForm flightInput){
         try {
+            System.out.println(flightInput.toString());
             Flight flight = flightService.createFlight(flightInput);
+            System.out.println(flight.toString());
             return ResponseEntity.ok(flight.getFlightId().toString());
         }catch (Exception e) {
             System.out.println(e.getMessage());

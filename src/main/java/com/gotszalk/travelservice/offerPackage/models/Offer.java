@@ -87,4 +87,16 @@ public class Offer {
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
+
+    @Override
+    public String toString() {
+        return "Offer{" +
+                "offerId=" + offerId +
+                ", price=" + price +
+                ", standard=" + standard +
+                ", kindOfApartment='" + kindOfApartment + '\'' +
+                ", flight=" + flight +
+                ", hotel=" + hotel +
+                '}';
+    }
 }

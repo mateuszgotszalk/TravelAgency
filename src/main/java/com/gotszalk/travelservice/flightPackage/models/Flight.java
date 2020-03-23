@@ -15,7 +15,7 @@ public class Flight {
     private Long flightId;
     private String departureAirport;
     private String departureCountry;
-    private String DepartureDate;
+    private String departureDate;
     private String arrivalAirport;
     private String arrivalCountry;
     private String arrivalDate;
@@ -31,7 +31,7 @@ public class Flight {
 
         this.departureAirport = departureAirport;
         this.departureCountry = departureCountry;
-        DepartureDate = departureDate;
+        this.departureDate = departureDate;
         this.arrivalAirport = arrivalAirport;
         this.arrivalCountry = arrivalCountry;
         this.arrivalDate = arrivalDate;
@@ -66,11 +66,11 @@ public class Flight {
     }
 
     public String getDepartureDate() {
-        return DepartureDate;
+        return departureDate;
     }
 
     public void setDepartureDate(String departureDate) {
-        DepartureDate = departureDate;
+        this.departureDate = departureDate;
     }
 
     public String getArrivalAirport() {
@@ -111,5 +111,19 @@ public class Flight {
 
     public void setOffers(List<Offer> offers) {
         this.offers = offers;
+    }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "flightId=" + flightId +
+                ", departureAirport='" + departureAirport + '\'' +
+                ", departureCountry='" + departureCountry + '\'' +
+                ", departureDate='" + departureDate + '\'' +
+                ", arrivalAirport='" + arrivalAirport + '\'' +
+                ", arrivalCountry='" + arrivalCountry + '\'' +
+                ", arrivalDate='" + arrivalDate + '\'' +
+                ", flightCost=" + flightCost +
+                '}';
     }
 }

@@ -14,7 +14,7 @@ public class OfferInputForm {
 
     private String departureAirport;
     private String departureCountry;
-    private String DepartureDate;
+    private String departureDate;
     private String arrivalAirport;
     private String arrivalCountry;
     private String arrivalDate;
@@ -88,11 +88,11 @@ public class OfferInputForm {
     }
 
     public String getDepartureDate() {
-        return DepartureDate;
+        return departureDate;
     }
 
     public void setDepartureDate(String departureDate) {
-        DepartureDate = departureDate;
+        this.departureDate = departureDate;
     }
 
     public String getArrivalAirport() {
@@ -125,5 +125,24 @@ public class OfferInputForm {
 
     public void setFlightCost(BigDecimal flightCost) {
         this.flightCost = flightCost;
+    }
+
+    @Override
+    public String toString() {
+        return "OfferInputForm{" +
+                "price=" + price +
+                ", standard=" + standard +
+                ", kindOfApartment='" + kindOfApartment + '\'' +
+                ", hotelName='" + hotelName + '\'' +
+                ", hotelCountry='" + hotelCountry + '\'' +
+                ", hotelCity='" + hotelCity + '\'' +
+                ", departureAirport='" + departureAirport + '\'' +
+                ", departureCountry='" + departureCountry + '\'' +
+                ", departureDate='" + departureDate + '\'' +
+                ", arrivalAirport='" + arrivalAirport + '\'' +
+                ", arrivalCountry='" + arrivalCountry + '\'' +
+                ", arrivalDate='" + arrivalDate + '\'' +
+                ", flightCost=" + flightCost +
+                '}';
     }
 }

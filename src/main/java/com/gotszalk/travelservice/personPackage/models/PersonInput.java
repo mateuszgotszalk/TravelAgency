@@ -48,4 +48,14 @@ public class PersonInput {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    @Override
+    public String toString() {
+        return "PersonInput{" +
+                "name='" + name + '\'' +
+                ", surrName='" + surrName + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }
