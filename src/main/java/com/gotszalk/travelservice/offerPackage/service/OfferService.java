@@ -32,15 +32,8 @@ public class OfferService {
 
     public Offer createOffer(OfferInputForm input) throws IllegalArgumentException{
 
-        Offer offer = null;
-
-        if(input == null){
-            throw new IllegalArgumentException("Input is empty");
-        }
-        else {
-            offer = saveOffer(input);
-            return offer;
-        }
+        Offer offer = saveOffer(input);;
+        return offer;
     }
 
     private Offer saveOffer(OfferInputForm inputForm){

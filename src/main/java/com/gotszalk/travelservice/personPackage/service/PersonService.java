@@ -22,16 +22,8 @@ public class PersonService {
 
 
     public Person createPerson(PersonInput input) throws IllegalArgumentException{
-
-        Person person = null;
-
-        if(input == null){
-            throw new IllegalArgumentException("Input is empty");
-        }
-        else {
-            person = savePerson(input);
-            return person;
-        }
+        Person person = savePerson(input);
+        return person;
     }
 
     private Person savePerson(PersonInput input){

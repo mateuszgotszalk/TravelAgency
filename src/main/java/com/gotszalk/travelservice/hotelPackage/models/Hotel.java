@@ -5,6 +5,7 @@ import com.gotszalk.travelservice.offerPackage.models.Offer;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Hotel {
@@ -77,5 +78,22 @@ public class Hotel {
                 ", hotelCountry='" + hotelCountry + '\'' +
                 ", hotelCity='" + hotelCity + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Hotel hotel = (Hotel) o;
+        return Objects.equals(getHotelId(), hotel.getHotelId()) &&
+                Objects.equals(getHotelName(), hotel.getHotelName()) &&
+                Objects.equals(getHotelCountry(), hotel.getHotelCountry()) &&
+                Objects.equals(getHotelCity(), hotel.getHotelCity()) &&
+                Objects.equals(getOffers(), hotel.getOffers());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getHotelId(), getHotelName(), getHotelCountry(), getHotelCity(), getOffers());
     }
 }

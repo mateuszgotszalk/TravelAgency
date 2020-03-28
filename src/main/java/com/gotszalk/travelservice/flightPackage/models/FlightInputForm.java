@@ -1,6 +1,7 @@
 package com.gotszalk.travelservice.flightPackage.models;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class FlightInputForm {
 
@@ -156,5 +157,24 @@ public class FlightInputForm {
                 ", arrivalDate='" + arrivalDate + '\'' +
                 ", flightCost=" + flightCost +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FlightInputForm that = (FlightInputForm) o;
+        return getDepartureAirport().equals(that.getDepartureAirport()) &&
+                getDepartureCountry().equals(that.getDepartureCountry()) &&
+                getDepartureDate().equals(that.getDepartureDate()) &&
+                getArrivalAirport().equals(that.getArrivalAirport()) &&
+                getArrivalCountry().equals(that.getArrivalCountry()) &&
+                getArrivalDate().equals(that.getArrivalDate()) &&
+                getFlightCost().equals(that.getFlightCost());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDepartureAirport(), getDepartureCountry(), getDepartureDate(), getArrivalAirport(), getArrivalCountry(), getArrivalDate(), getFlightCost());
     }
 }

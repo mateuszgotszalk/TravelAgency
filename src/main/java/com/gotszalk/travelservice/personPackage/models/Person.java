@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gotszalk.travelservice.tripPackage.models.Trip;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -89,5 +90,23 @@ public class Person {
                 ", dateOfBirth='" + dateOfBirth + '\'' +
                 ", role=" + role +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return getPersonId().equals(person.getPersonId()) &&
+                getName().equals(person.getName()) &&
+                getSurrName().equals(person.getSurrName()) &&
+                getDateOfBirth().equals(person.getDateOfBirth()) &&
+                getRole() == person.getRole() &&
+                Objects.equals(getTrips(), person.getTrips());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPersonId(), getName(), getSurrName(), getDateOfBirth(), getRole(), getTrips());
     }
 }

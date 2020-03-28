@@ -1,5 +1,7 @@
 package com.gotszalk.travelservice.personPackage.models;
 
+import java.util.Objects;
+
 public class PersonInput {
 
     private String name;
@@ -57,5 +59,21 @@ public class PersonInput {
                 ", dateOfBirth='" + dateOfBirth + '\'' +
                 ", role=" + role +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonInput that = (PersonInput) o;
+        return getName().equals(that.getName()) &&
+                getSurrName().equals(that.getSurrName()) &&
+                getDateOfBirth().equals(that.getDateOfBirth()) &&
+                getRole() == that.getRole();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getSurrName(), getDateOfBirth(), getRole());
     }
 }

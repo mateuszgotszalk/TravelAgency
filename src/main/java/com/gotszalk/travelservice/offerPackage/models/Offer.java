@@ -6,6 +6,7 @@ import com.gotszalk.travelservice.hotelPackage.models.Hotel;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 public class Offer {
@@ -98,5 +99,23 @@ public class Offer {
                 ", flight=" + flight +
                 ", hotel=" + hotel +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Offer offer = (Offer) o;
+        return getOfferId().equals(offer.getOfferId()) &&
+                getPrice().equals(offer.getPrice()) &&
+                getStandard() == offer.getStandard() &&
+                getKindOfApartment().equals(offer.getKindOfApartment()) &&
+                Objects.equals(getFlight(), offer.getFlight()) &&
+                Objects.equals(getHotel(), offer.getHotel());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getOfferId(), getPrice(), getStandard(), getKindOfApartment(), getFlight(), getHotel());
     }
 }

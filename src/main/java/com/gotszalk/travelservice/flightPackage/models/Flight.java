@@ -6,6 +6,7 @@ import com.gotszalk.travelservice.offerPackage.models.Offer;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Flight {
@@ -125,5 +126,28 @@ public class Flight {
                 ", arrivalDate='" + arrivalDate + '\'' +
                 ", flightCost=" + flightCost +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Flight flight = (Flight) o;
+        return getFlightId().equals(flight.getFlightId()) &&
+                getDepartureAirport().equals(flight.getDepartureAirport()) &&
+                getDepartureCountry().equals(flight.getDepartureCountry()) &&
+                getDepartureDate().equals(flight.getDepartureDate()) &&
+                getArrivalAirport().equals(flight.getArrivalAirport()) &&
+                getArrivalCountry().equals(flight.getArrivalCountry()) &&
+                getArrivalDate().equals(flight.getArrivalDate()) &&
+                getFlightCost().equals(flight.getFlightCost()) &&
+                Objects.equals(getOffers(), flight.getOffers());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFlightId(), getDepartureAirport(), getDepartureCountry(),
+                getDepartureDate(), getArrivalAirport(), getArrivalCountry(),
+                getArrivalDate(), getFlightCost(), getOffers());
     }
 }

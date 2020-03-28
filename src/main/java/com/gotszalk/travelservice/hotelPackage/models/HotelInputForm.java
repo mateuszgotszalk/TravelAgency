@@ -1,5 +1,7 @@
 package com.gotszalk.travelservice.hotelPackage.models;
 
+import java.util.Objects;
+
 public class HotelInputForm {
 
     private String hotelName;
@@ -80,5 +82,20 @@ public class HotelInputForm {
                 ", hotelCountry='" + hotelCountry + '\'' +
                 ", hotelCity='" + hotelCity + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HotelInputForm that = (HotelInputForm) o;
+        return getHotelName().equals(that.getHotelName()) &&
+                getHotelCountry().equals(that.getHotelCountry()) &&
+                getHotelCity().equals(that.getHotelCity());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getHotelName(), getHotelCountry(), getHotelCity());
     }
 }

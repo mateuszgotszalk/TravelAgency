@@ -1,6 +1,7 @@
 package com.gotszalk.travelservice.offerPackage.models;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class OfferInputForm {
 
@@ -144,5 +145,32 @@ public class OfferInputForm {
                 ", arrivalDate='" + arrivalDate + '\'' +
                 ", flightCost=" + flightCost +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OfferInputForm that = (OfferInputForm) o;
+        return getPrice().equals(that.getPrice()) &&
+                getStandard() == that.getStandard() &&
+                getKindOfApartment().equals(that.getKindOfApartment()) &&
+                getHotelName().equals(that.getHotelName()) &&
+                getHotelCountry().equals(that.getHotelCountry()) &&
+                getHotelCity().equals(that.getHotelCity()) &&
+                getDepartureAirport().equals(that.getDepartureAirport()) &&
+                getDepartureCountry().equals(that.getDepartureCountry()) &&
+                getDepartureDate().equals(that.getDepartureDate()) &&
+                getArrivalAirport().equals(that.getArrivalAirport()) &&
+                getArrivalCountry().equals(that.getArrivalCountry()) &&
+                getArrivalDate().equals(that.getArrivalDate()) &&
+                getFlightCost().equals(that.getFlightCost());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPrice(), getStandard(), getKindOfApartment(), getHotelName(),
+                getHotelCountry(), getHotelCity(), getDepartureAirport(), getDepartureCountry(),
+                getDepartureDate(), getArrivalAirport(), getArrivalCountry(), getArrivalDate(), getFlightCost());
     }
 }

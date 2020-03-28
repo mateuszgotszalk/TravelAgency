@@ -22,15 +22,8 @@ public class HotelService {
 
     public Hotel createHotel(HotelInputForm hotelInput) throws IllegalArgumentException{
 
-        Hotel hotel = null;
-
-        if(hotelInput == null){
-            throw new IllegalArgumentException("Input is empty");
-        }
-        else {
-                hotel = saveHotel(hotelInput);
-                return hotel;
-        }
+        Hotel hotel = saveHotel(hotelInput);;
+        return hotel;
     }
 
     private Hotel saveHotel(HotelInputForm inputForm){

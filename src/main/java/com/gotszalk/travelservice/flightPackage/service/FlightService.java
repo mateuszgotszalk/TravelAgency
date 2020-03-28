@@ -20,16 +20,8 @@ public class FlightService {
     }
 
     public Flight createFlight(FlightInputForm flightInput) throws IllegalArgumentException{
-
-        Flight flight = null;
-
-        if(flightInput == null){
-            throw new IllegalArgumentException("Input is empty");
-        }
-        else {
-            flight = saveFlight(flightInput);
+        Flight flight = saveFlight(flightInput);;
             return flight;
-        }
     }
 
     private Flight saveFlight(FlightInputForm flightInput){
