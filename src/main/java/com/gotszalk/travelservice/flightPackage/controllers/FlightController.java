@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 public class FlightController {
@@ -21,12 +20,9 @@ public class FlightController {
     }
 
     @RequestMapping(path = "flights/addFlight")
-    public @ResponseBody ResponseEntity<String> addFlight(@RequestBody FlightInputForm flightInput){
+    public @ResponseBody ResponseEntity<?> addFlight(@RequestBody FlightInputForm flightInput){
         try {
-            System.out.println(flightInput.toString());
-            Flight flight = flightService.createFlight(flightInput);
-            System.out.println(flight.toString());
-            return ResponseEntity.ok(flight.getFlightId().toString());
+            return ResponseEntity.ok(flightService.createFlight(flightInput));
         }catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -34,9 +30,9 @@ public class FlightController {
     }
 
     @RequestMapping(path = "flights/getFlights", method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity<String> getFlights(){
+    public @ResponseBody ResponseEntity<?> getFlights(){
         try{
-            return ResponseEntity.ok(flightService.getFLights().toString());
+            return ResponseEntity.ok(flightService.getFLights());
         }catch (Exception e){
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -44,9 +40,9 @@ public class FlightController {
     }
 
     @RequestMapping(path = "flights/getFlight/{id}", method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity<String> getFlight(@PathVariable String id){
+    public @ResponseBody ResponseEntity<?> getFlight(@PathVariable String id){
         try{
-            return ResponseEntity.ok(flightService.getFlight(id).toString());
+            return ResponseEntity.ok(flightService.getFlight(id));
 
         }catch (Exception e){
             System.out.println(e.getMessage());

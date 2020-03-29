@@ -22,11 +22,10 @@ public class PersonController {
     }
 
     @RequestMapping(path = "people/addPerson")
-    public @ResponseBody ResponseEntity<String> addPerson(@RequestBody PersonInput input){
+    public @ResponseBody ResponseEntity<?> addPerson(@RequestBody PersonInput input){
 
         try {
-            Person person = personService.createPerson(input);
-            return ResponseEntity.ok(person.getPersonId().toString());
+            return ResponseEntity.ok(personService.createPerson(input));
         }catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -34,7 +33,7 @@ public class PersonController {
     }
 
     @RequestMapping(path = "people/addPeople", method = RequestMethod.POST)
-    public @ResponseBody ResponseEntity<String> addPeople(List<PersonInput> inputPeople) {
+    public @ResponseBody ResponseEntity<?> addPeople(List<PersonInput> inputPeople) {
 
         List<Person> people = new LinkedList<>();
 
@@ -47,14 +46,14 @@ public class PersonController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body("Zapisane: " + people.toString());
+        return ResponseEntity.status(HttpStatus.OK).body(people);
     }
 
     @RequestMapping(path = "people/getPeople", method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity<String> getPeople(){
+    public @ResponseBody ResponseEntity<?> getPeople(){
         try{
 
-            return ResponseEntity.ok(personService.getPeople().toString());
+            return ResponseEntity.ok(personService.getPeople());
 
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -63,10 +62,10 @@ public class PersonController {
     }
 
     @RequestMapping(path = "people/getPerson/{id}", method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity<String> getPerson(@PathVariable String id){
+    public @ResponseBody ResponseEntity<?> getPerson(@PathVariable String id){
         try{
 
-            return ResponseEntity.ok(personService.getPerson(id).toString());
+            return ResponseEntity.ok(personService.getPerson(id));
 
         }catch (Exception e){
             System.out.println(e.getMessage());

@@ -20,7 +20,7 @@ public class Person {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @JsonIgnore
+
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Trip> trips;
 

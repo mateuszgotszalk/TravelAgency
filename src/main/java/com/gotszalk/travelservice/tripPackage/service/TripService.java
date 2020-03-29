@@ -43,7 +43,6 @@ public class TripService {
                 .status(Status.UTWORZONA)
                 .totalCost(calculateCost(offer.getPrice(), people))
                 .build();
-
         tripRepository.save(trip);
         return trip;
     }
@@ -51,6 +50,7 @@ public class TripService {
     BigDecimal calculateCost(BigDecimal price, Set<Person> people) {
 
         BigDecimal totalCost = BigDecimal.ZERO;
+
         for(Person person : people){
             if (person.getRole().equals(Role.CLIENT) || person.getRole().equals(Role.PASSENGER)){
                 totalCost = totalCost.add(price);
@@ -79,6 +79,10 @@ public class TripService {
 
     public List<Trip> getTrips(){
         return (List<Trip>)tripRepository.findAll();
+    }
+
+    public void updateTrip(String id, Status status){
+        tripRepository.updateStatus(Long.valueOf(id), status);
     }
 
     public void deleteTrip(String id){

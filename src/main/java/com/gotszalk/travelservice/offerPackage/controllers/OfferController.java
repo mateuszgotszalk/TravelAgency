@@ -20,11 +20,10 @@ public class OfferController {
     }
 
     @PostMapping(path = "offer/addOffer")
-    public @ResponseBody ResponseEntity<String> addOffer(@RequestBody OfferInputForm inputForm){
+    public @ResponseBody ResponseEntity<?> addOffer(@RequestBody OfferInputForm inputForm){
 
         try {
-            Offer offer = offerService.createOffer(inputForm);
-            return ResponseEntity.ok(offer.getOfferId().toString());
+            return ResponseEntity.ok(offerService.createOffer(inputForm));
         }catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -32,9 +31,9 @@ public class OfferController {
     }
 
     @GetMapping(path = "offer/getOffers")
-    public @ResponseBody ResponseEntity<String> getOffers(){
+    public @ResponseBody ResponseEntity<?> getOffers(){
         try{
-            return ResponseEntity.ok(offerService.getOffers().toString());
+            return ResponseEntity.ok(offerService.getOffers());
         }catch (Exception e){
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -42,9 +41,9 @@ public class OfferController {
     }
 
     @GetMapping(path = "offer/getOffer/{id}")
-    public ResponseEntity<String> getOffer(@PathVariable String id){
+    public ResponseEntity<?> getOffer(@PathVariable String id){
         try{
-            return ResponseEntity.ok(offerService.getOffer(id).toString());
+            return ResponseEntity.ok(offerService.getOffer(id));
 
         }catch (Exception e){
             System.out.println(e.getMessage());

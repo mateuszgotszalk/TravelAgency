@@ -21,11 +21,11 @@ public class Trip {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Person> people;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "offer_id")
     private Offer offer;
@@ -117,7 +117,11 @@ public class Trip {
     }
 
     private Trip(final Builder builder) {
-
+        this.salesman = builder.salesman;
+        this.people = builder.people;
+        this.offer = builder.offer;
+        this.status = builder.status;
+        this.totalCost = builder.totalCost;
     }
 
     public static class Builder{

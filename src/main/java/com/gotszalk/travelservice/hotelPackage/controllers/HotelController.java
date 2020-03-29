@@ -22,11 +22,10 @@ public class HotelController {
     }
 
     @RequestMapping(path = "hotels/addHotel", method = RequestMethod.POST)
-    public @ResponseBody ResponseEntity<String> addHotel(@RequestBody HotelInputForm hotelInput){
+    public @ResponseBody ResponseEntity<?> addHotel(@RequestBody HotelInputForm hotelInput){
 
         try {
-            Hotel hotel = hotelService.createHotel(hotelInput);
-            return ResponseEntity.ok(hotel.getHotelId().toString());
+            return ResponseEntity.ok(hotelService.createHotel(hotelInput));
         }catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -34,7 +33,7 @@ public class HotelController {
     }
 
     @RequestMapping(path = "hotels/addHotelList", method = RequestMethod.POST)
-    public @ResponseBody ResponseEntity<String> addHotelList(@RequestBody HotelInputForm[] inputHotels){
+    public @ResponseBody ResponseEntity<?> addHotelList(@RequestBody HotelInputForm[] inputHotels){
 
         List<Hotel> hotels = new LinkedList<>();
 
@@ -46,13 +45,13 @@ public class HotelController {
                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body("Zapisane: " + hotels.toString());
+        return ResponseEntity.status(HttpStatus.OK).body(hotels);
     }
 
     @RequestMapping(path = "hotels/getHotels", method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity<String> getHotels(){
+    public @ResponseBody ResponseEntity<?> getHotels(){
         try{
-            return ResponseEntity.ok(hotelService.getHotels().toString());
+            return ResponseEntity.ok(hotelService.getHotels());
         }catch (Exception e){
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -60,9 +59,9 @@ public class HotelController {
     }
 
     @RequestMapping(path = "hotels/getHotel/{id}", method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity<String> getHotel(@PathVariable String id){
+    public @ResponseBody ResponseEntity<?> getHotel(@PathVariable String id){
         try{
-            return ResponseEntity.ok(hotelService.getHotel(id).toString());
+            return ResponseEntity.ok(hotelService.getHotel(id));
 
         }catch (Exception e){
             System.out.println(e.getMessage());
