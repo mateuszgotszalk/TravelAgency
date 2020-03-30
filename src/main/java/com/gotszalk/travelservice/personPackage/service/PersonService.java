@@ -4,13 +4,11 @@ package com.gotszalk.travelservice.personPackage.service;
 import com.gotszalk.travelservice.personPackage.models.Person;
 import com.gotszalk.travelservice.personPackage.models.PersonInput;
 import com.gotszalk.travelservice.personPackage.repository.PersonRepository;
-import com.gotszalk.travelservice.tripPackage.models.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class PersonService {
@@ -24,7 +22,11 @@ public class PersonService {
 
 
     public Person createPerson(PersonInput input) throws IllegalArgumentException{
-        return savePerson(input);
+
+        Optional<Person> person = personRepository
+                .findByNameAndSurrNameAndDateOfBirth(input.getName(), input.getSurrName(), input.getDateOfBirth());
+
+        return person.orElseGet(() -> savePerson(input));
     }
 
     private Person savePerson(PersonInput input){

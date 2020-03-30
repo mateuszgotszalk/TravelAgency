@@ -20,8 +20,12 @@ public class FlightService {
     }
 
     public Flight createFlight(FlightInputForm flightInput) throws IllegalArgumentException{
-        Flight flight = saveFlight(flightInput);;
-            return flight;
+
+        Optional<Flight> flight = flightRepository
+                .findByDepartureAirportAndArrivalAirportAndDepartureDate
+                        (flightInput.getDepartureAirport(), flightInput.getArrivalAirport(), flightInput.getDepartureDate());
+
+            return flight.orElseGet(() -> saveFlight(flightInput));
     }
 
     private Flight saveFlight(FlightInputForm flightInput){

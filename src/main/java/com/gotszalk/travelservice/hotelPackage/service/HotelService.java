@@ -21,9 +21,11 @@ public class HotelService {
     }
 
     public Hotel createHotel(HotelInputForm hotelInput) throws IllegalArgumentException{
+        Optional<Hotel> hotel = hotelRepository
+                .findByHotelNameAndHotelCityAndHotelCountry
+                        (hotelInput.getHotelName(), hotelInput.getHotelCity(), hotelInput.getHotelCountry());
 
-        Hotel hotel = saveHotel(hotelInput);;
-        return hotel;
+        return hotel.orElseGet(() -> saveHotel(hotelInput));
     }
 
     private Hotel saveHotel(HotelInputForm inputForm){
