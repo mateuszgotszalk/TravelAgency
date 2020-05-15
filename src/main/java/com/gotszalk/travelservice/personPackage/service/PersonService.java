@@ -3,7 +3,9 @@ package com.gotszalk.travelservice.personPackage.service;
 
 import com.gotszalk.travelservice.personPackage.models.Person;
 import com.gotszalk.travelservice.personPackage.models.PersonInput;
+import com.gotszalk.travelservice.personPackage.models.Person_DTO;
 import com.gotszalk.travelservice.personPackage.repository.PersonRepository;
+import com.gotszalk.travelservice.personPackage.utils.PersonMapper;
 import com.gotszalk.travelservice.tripPackage.models.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,10 +48,10 @@ public class PersonService {
         return (List<Person>)personRepository.findAll();
     }
 
-    public Person getPerson(String id) throws IllegalArgumentException{
+    public Person_DTO getPerson_DTO(String id) throws IllegalArgumentException{
         Optional<Person> person = personRepository.findById(Long.valueOf(id));
         if(person.isPresent()){
-            return person.get();
+            return PersonMapper.mapPersonToPersonDTO(person.get());
         } else {
             throw new IllegalArgumentException("Not Found person " + id);
         }

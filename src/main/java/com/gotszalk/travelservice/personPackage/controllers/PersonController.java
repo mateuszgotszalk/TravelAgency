@@ -64,8 +64,7 @@ public class PersonController {
     @RequestMapping(path = "people/getPerson/{id}", method = RequestMethod.GET)
     public @ResponseBody ResponseEntity<?> getPerson(@PathVariable String id){
         try{
-
-            return ResponseEntity.ok(personService.getPerson(id));
+            return ResponseEntity.ok(personService.getPerson_DTO(id));
 
         }catch (Exception e){
             System.out.println(e.getMessage());
