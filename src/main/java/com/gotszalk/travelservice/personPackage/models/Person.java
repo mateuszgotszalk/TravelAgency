@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gotszalk.travelservice.tripPackage.models.Trip;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -20,8 +21,8 @@ public class Person {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-
-    @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToMany(mappedBy = "people", cascade = CascadeType.ALL)
     private Set<Trip> trips;
 
     public Person() {
@@ -70,7 +71,12 @@ public class Person {
     }
 
     public void setTrips(Set<Trip> trips) {
-        this.trips = trips;
+        this.trips = new HashSet<Trip>();
+        this.trips.addAll(trips);
+    }
+
+    public void addTrip(Trip trip){
+        trips.add(trip);
     }
 
     public Role getRole() {
@@ -103,10 +109,5 @@ public class Person {
                 getDateOfBirth().equals(person.getDateOfBirth()) &&
                 getRole() == person.getRole() &&
                 Objects.equals(getTrips(), person.getTrips());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getPersonId(), getName(), getSurrName(), getDateOfBirth(), getRole(), getTrips());
     }
 }

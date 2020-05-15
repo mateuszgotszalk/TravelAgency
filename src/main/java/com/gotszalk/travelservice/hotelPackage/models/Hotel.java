@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gotszalk.travelservice.offerPackage.models.Offer;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -67,7 +68,13 @@ public class Hotel {
     }
 
     public void setOffers(List<Offer> offers) {
-        this.offers = offers;
+        this.offers = new ArrayList<Offer>();
+        this.offers.addAll(offers);
+    }
+
+    public void addOffer(Offer offer){
+        offer.setHotel(this);
+        offers.add(offer);
     }
 
     @Override

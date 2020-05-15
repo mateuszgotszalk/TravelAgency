@@ -6,6 +6,7 @@ import com.gotszalk.travelservice.offerPackage.models.Offer;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -23,9 +24,12 @@ public class Trip {
 
     //@JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "trip_person",
+        joinColumns = @JoinColumn(name = "trip_id"),
+        inverseJoinColumns = @JoinColumn(name = "person_id"))
     private Set<Person> people;
 
-    //@JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "offer_id")
     private Offer offer;
@@ -69,7 +73,8 @@ public class Trip {
     }
 
     public void setPeople(Set<Person> people) {
-        this.people = people;
+        this.people = new HashSet<Person>();
+        this.people.addAll(people);
     }
 
     public Offer getOffer() {
@@ -113,7 +118,7 @@ public class Trip {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTripId(), getTotalCost(), getSalesman(), getStatus(), getPeople(), getOffer());
+        return Objects.hash(tripId, totalCost, salesman, status, people, offer);
     }
 
     private Trip(final Builder builder) {

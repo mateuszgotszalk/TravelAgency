@@ -19,9 +19,9 @@ import java.util.*;
 @Service
 public class TripService {
 
-    private TripRepository tripRepository;
-    private PersonService personService;
-    private OfferService offerService;
+    private final TripRepository tripRepository;
+    private final PersonService personService;
+    private final OfferService offerService;
 
     @Autowired
     public TripService(TripRepository tripRepository, PersonService personService, OfferService offerService) {
@@ -30,11 +30,15 @@ public class TripService {
         this.offerService = offerService;
     }
 
-    public Trip createTrip(TripInputForm inputForm){
+    public Trip addTrip(TripInputForm inputForm) {
         //init
         Set<Person> people = createPeopleSet(inputForm);
         Offer offer = offerService.getOffer(inputForm.getOfferId());
 
+        return createTrip(inputForm, offer, people);
+    }
+
+    private Trip createTrip(TripInputForm inputForm, Offer offer, Set<Person> people){
         //create Trip
         Trip trip = new Trip.Builder()
                 .people(people)

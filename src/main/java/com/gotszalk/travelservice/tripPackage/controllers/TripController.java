@@ -22,7 +22,7 @@ public class TripController {
     @PostMapping(path = "trip/addTrip")
     public @ResponseBody ResponseEntity<?> addTrip(@RequestBody TripInputForm inputForm){
         try {
-            return ResponseEntity.ok(tripService.createTrip(inputForm));
+            return ResponseEntity.ok(tripService.addTrip(inputForm));
         }catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -34,8 +34,16 @@ public class TripController {
         try{
             return ResponseEntity.ok(tripService.getTrips());
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("Exception: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }catch (Error error){
+            System.out.println("Error: " );
+            System.out.println(error.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
+        }catch (Throwable throwable){
+            System.out.println("Throwable: " );
+            System.out.println(throwable.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(throwable.getMessage());
         }
     }
 
