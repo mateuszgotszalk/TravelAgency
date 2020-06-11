@@ -12,7 +12,9 @@ import com.gotszalk.travelservice.tripPackage.models.TripInputForm;
 import com.gotszalk.travelservice.tripPackage.repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -89,7 +91,12 @@ public class TripService {
         tripRepository.updateStatus(Long.valueOf(id), status);
     }
 
+    @Transactional
     public void deleteTrip(String id){
-        tripRepository.deleteById(Long.valueOf(id));
+        Optional<Trip> trip = tripRepository.findById(Long.valueOf(id));
+        trip.ifPresent(value -> {
+            value.getPeople().removeAll(value.getPeople());
+            tripRepository.delete(trip.get());
+        });
     }
 }

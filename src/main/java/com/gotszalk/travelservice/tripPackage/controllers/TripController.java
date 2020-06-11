@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class TripController {
 
@@ -62,17 +63,18 @@ public class TripController {
     public @ResponseBody ResponseEntity<String> deleteTrip(@PathVariable String id){
         try{
             tripService.deleteTrip(id);
-        }catch (Exception e){
+        }catch (Exception | Error e){
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-        return ResponseEntity.ok("Deleted trip with id " + id);
+        return ResponseEntity.ok("{ \"Deleted trip with id\": " + id + "}");
     }
 
     @PutMapping(path = "trip/changeStatus/{id}")
     public @ResponseBody ResponseEntity<?> updateStatus(@PathVariable String id, @RequestBody Status status){
         try{
             tripService.updateTrip(id, status);
-            return ResponseEntity.ok("OK, updated");
+            return ResponseEntity.ok("{ \"OK\": \"updated\" }");
         }catch (Exception e){
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

@@ -24,7 +24,7 @@ public class Flight {
     private BigDecimal flightCost;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "flight")
     private List<Offer> offers;
 
     public Flight(String departureAirport, String departureCountry, String departureDate,

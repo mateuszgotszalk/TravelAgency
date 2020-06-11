@@ -21,7 +21,6 @@ public class Trip_DTO {
     }
 
 
-
     public Long getTripId() {
         return tripId;
     }

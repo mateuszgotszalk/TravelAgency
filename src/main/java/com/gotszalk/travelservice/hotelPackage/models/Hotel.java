@@ -19,7 +19,7 @@ public class Hotel {
     private String hotelCity;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hotel")
     private List<Offer> offers;
 
     public Hotel() {

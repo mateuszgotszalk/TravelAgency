@@ -23,12 +23,12 @@ public class Offer {
     private String kindOfApartment;
 
     //@JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "flight_id")
     private Flight flight;
 
     //@JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 

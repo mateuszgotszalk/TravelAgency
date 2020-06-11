@@ -23,14 +23,14 @@ public class Trip {
     private Status status;
 
     //@JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
         name = "trip_person",
         joinColumns = @JoinColumn(name = "trip_id"),
         inverseJoinColumns = @JoinColumn(name = "person_id"))
-    private Set<Person> people;
+    private Set<Person> people = new HashSet<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "offer_id")
     private Offer offer;
 
@@ -91,6 +91,16 @@ public class Trip {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public void addPerson(Person person){
+        people.add(person);
+        person.getTrips().add(this);
+    }
+
+    public void removePerson(Person person){
+        people.remove(person);
+        person.getTrips().remove(this);
     }
 
     @Override

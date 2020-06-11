@@ -22,8 +22,8 @@ public class Person {
     private Role role;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "people", cascade = CascadeType.ALL)
-    private Set<Trip> trips;
+    @ManyToMany(mappedBy = "people")
+    private Set<Trip> trips = new HashSet<>();
 
     public Person() {
     }

@@ -10,9 +10,8 @@ import com.gotszalk.travelservice.tripPackage.models.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
@@ -44,8 +43,11 @@ public class PersonService {
         return person;
     }
 
-    public List<Person> getPeople(){
-        return (List<Person>)personRepository.findAll();
+    public List<Person_DTO> getPeople(){
+        return ((List<Person>)personRepository.findAll())
+                .stream()
+                .map(PersonMapper::mapPersonToPersonDTO)
+                .collect(Collectors.toList());
     }
 
     public Person_DTO getPerson_DTO(String id) throws IllegalArgumentException{
