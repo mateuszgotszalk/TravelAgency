@@ -65,7 +65,7 @@ public class AuthService {
         String token = generateVerificationToken(user);
         mailService.sendMail(new NotificationEmail("Please Active your account",
                 user.getEmail(), "Please click below :" +
-                "http://localhost:8080/auth/accountVericication" + token));
+                "http://localhost:8080/auth/accountVerification" + token));
     }
 
     private String generateVerificationToken(User user) {
