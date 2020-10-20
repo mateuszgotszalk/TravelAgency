@@ -1,5 +1,6 @@
 package com.gotszalk.travelservice.userPackage.controller;
 
+import com.gotszalk.travelservice.userPackage.model.LoginRequest;
 import com.gotszalk.travelservice.userPackage.model.RegisterRequest;
 import com.gotszalk.travelservice.userPackage.model.User;
 import com.gotszalk.travelservice.userPackage.service.IUserService;
@@ -10,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/")
 public class UserController {
 
     private final IUserService userService;
@@ -20,7 +21,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(path = "/registration")
+    @PostMapping(path = "registration")
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest){
 
         try {
@@ -31,7 +32,12 @@ public class UserController {
         return ResponseEntity.ok("successfully created account");
     }
 
-    @GetMapping("/show")
+    @PostMapping(path = "login")
+    public String login(@RequestBody LoginRequest loginRequest){
+        return "login";
+    }
+
+    @GetMapping("show")
     public String show(){
         return "user has permit to this endpoint";
     }
