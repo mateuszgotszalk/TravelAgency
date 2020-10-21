@@ -27,7 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtConfig jwtConfig;
 
     @Autowired
-    public SecurityConfig(@Qualifier("myUserDetailService") UserDetailsService userDetailsService, SecretKey key, JwtConfig jwtConfig) {
+    public SecurityConfig(@Qualifier("myUserDetailService") UserDetailsService userDetailsService,
+                          SecretKey key,
+                          JwtConfig jwtConfig) {
         this.userDetailsService = userDetailsService;
         this.key = key;
         this.jwtConfig = jwtConfig;
@@ -41,8 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), key, jwtConfig))
                 .addFilterAfter(new JwtTokenVerifier(key, jwtConfig), JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                // TODO sprawdz jeszcze czy front strzela getOffer/{id}
-                .antMatchers("/login", "/registration", "/offer/getOffers").permitAll()
+                .antMatchers("/login", "/registration", "/offer/getOffers", "/offer/getOffer/**").permitAll()
                 .antMatchers("/show").hasRole("USER")
                 .antMatchers(HttpMethod.DELETE, "offer/**").hasRole("USER")
                 .antMatchers(HttpMethod.POST, "offer/**").hasRole("USER")
