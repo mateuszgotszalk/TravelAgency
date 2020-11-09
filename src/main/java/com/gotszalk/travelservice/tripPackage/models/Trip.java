@@ -5,6 +5,7 @@ import com.gotszalk.travelservice.personPackage.models.Person;
 import com.gotszalk.travelservice.offerPackage.models.Offer;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
@@ -16,9 +17,12 @@ public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long tripId;
+
+    @NotBlank
     private BigDecimal totalCost;
     private String salesman;
 
+    @NotBlank
     @Enumerated(EnumType.STRING)
     private Status status;
 

@@ -16,13 +16,12 @@ import java.util.stream.Collectors;
 @Service
 public class PersonService {
 
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
     @Autowired
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
-
 
     public Person createPerson(PersonInput input) throws IllegalArgumentException{
 

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class TripController {
 
-    private TripService tripService;
+    private final TripService tripService;
 
     @Autowired
     public TripController(TripService tripService) {

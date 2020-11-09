@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class OfferController {
 
-    private OfferService offerService;
+    private final OfferService offerService;
 
     @Autowired
     public OfferController(OfferService offerService) {

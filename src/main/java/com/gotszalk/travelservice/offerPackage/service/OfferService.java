@@ -18,9 +18,9 @@ import java.util.Optional;
 @Service
 public class OfferService {
 
-    private OfferRepository offerRepository;
-    private HotelService hotelService;
-    private FlightService flightService;
+    private final OfferRepository offerRepository;
+    private final HotelService hotelService;
+    private final FlightService flightService;
 
     @Autowired
     public OfferService(OfferRepository offerRepository, HotelService hotelService, FlightService flightService) {
