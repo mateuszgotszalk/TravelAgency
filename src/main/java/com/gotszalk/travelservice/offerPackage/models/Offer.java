@@ -1,6 +1,5 @@
 package com.gotszalk.travelservice.offerPackage.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gotszalk.travelservice.flightPackage.models.Flight;
 import com.gotszalk.travelservice.hotelPackage.models.Hotel;
 

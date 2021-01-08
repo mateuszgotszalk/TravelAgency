@@ -26,6 +26,9 @@ public class UserService implements IUserService{
     @Transactional
     public User registerNewUser(RegisterRequest registerRequest) throws RuntimeException{
 
+        System.out.println(registerRequest.getUsername());
+        System.out.println(registerRequest.getSurname());
+
         if(emailExist(registerRequest.getEmail())){
             throw new RuntimeException("Account with email: " + registerRequest.getEmail() + " already exist");
         }

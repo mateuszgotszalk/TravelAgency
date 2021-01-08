@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/")
 public class UserController {
@@ -33,8 +34,9 @@ public class UserController {
     }
 
     @PostMapping(path = "login")
-    public String login(@RequestBody LoginRequest loginRequest){
-        return "login";
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
+        System.out.println("Login w trakcie....");
+        return ResponseEntity.ok("successfully login to account");
     }
 
     @GetMapping("show")

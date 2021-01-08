@@ -1,13 +1,16 @@
 package com.gotszalk.travelservice.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Strings;
 import com.gotszalk.travelservice.userPackage.model.LoginRequest;
 import io.jsonwebtoken.Jwts;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.crypto.SecretKey;
 import javax.servlet.FilterChain;
@@ -18,6 +21,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
@@ -64,5 +68,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .compact();
 
         response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
+        response.setContentType("application/json");
+        response.getWriter().write("{ \"user\": " + "\""+ authResult.getPrincipal() + "\"" + ", \"token\": " + "\"" + token + "\" }");
     }
 }
