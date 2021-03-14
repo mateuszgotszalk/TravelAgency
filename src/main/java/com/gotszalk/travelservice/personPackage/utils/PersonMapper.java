@@ -2,7 +2,6 @@ package com.gotszalk.travelservice.personPackage.utils;
 
 import com.gotszalk.travelservice.personPackage.models.Person;
 import com.gotszalk.travelservice.personPackage.models.Person_DTO;
-import com.gotszalk.travelservice.tripPackage.models.Trip;
 import com.gotszalk.travelservice.tripPackage.utils.TripMapper;
 
 import java.util.stream.Collectors;
@@ -18,9 +17,8 @@ public class PersonMapper {
                 .trips_DTO(
                         person.getTrips()
                         .stream()
-                        .map(trip -> {
-                            return TripMapper.mapTripToTrip_DTO(trip);
-                        }).collect(Collectors.toList()))
+                        .map(TripMapper::mapTripToTrip_DTO)
+                                .collect(Collectors.toList()))
                 .build();
     }
 }

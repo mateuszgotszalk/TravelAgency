@@ -1,6 +1,5 @@
 package com.gotszalk.travelservice.security.jwt;
 
-import com.google.common.base.Strings;
 import com.google.common.net.HttpHeaders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.boot.context.properties.ConfigurationProperties;
