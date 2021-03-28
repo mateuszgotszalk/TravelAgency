@@ -1,7 +1,6 @@
 package com.gotszalk.travelservice.tripPackage.controllers;
 
 import com.gotszalk.travelservice.tripPackage.models.Status;
-import com.gotszalk.travelservice.tripPackage.models.Trip;
 import com.gotszalk.travelservice.tripPackage.models.TripInputForm;
 import com.gotszalk.travelservice.tripPackage.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
