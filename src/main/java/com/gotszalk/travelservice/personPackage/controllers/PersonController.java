@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 public class PersonController {
 
-    private PersonService personService;
+    private final PersonService personService;
 
     @Autowired
     public PersonController(PersonService personService) {

@@ -1,10 +1,8 @@
 package com.gotszalk.travelservice.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Strings;
 import com.gotszalk.travelservice.userPackage.model.LoginRequest;
 import io.jsonwebtoken.Jwts;
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
